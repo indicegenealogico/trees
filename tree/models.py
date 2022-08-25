@@ -17,7 +17,7 @@ class Tree(models.Model):
 
 
 #=======================================================================
-class Disease(models.Model):
+class Issue(models.Model):
   name = models.CharField(max_length=30, blank=False, null=False  )
   description = models.TextField(null=True, blank=True)
   photo_link = models.URLField( blank=True, null=True)
@@ -28,3 +28,6 @@ class Disease(models.Model):
 
   def __str__(self) :
     return (self.name)
+
+
+#=======================================================================
