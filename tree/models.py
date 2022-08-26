@@ -43,7 +43,7 @@ class Pest(models.Model):
 class Host(models.Model):
   
   tree     = models.ForeignKey(Tree, on_delete=models.CASCADE)
-  pest    = models.ForeignKey(Pest, on_delete=models.CASCADE)
+  pest     = models.ForeignKey(Pest, on_delete=models.CASCADE)
   symptoms = models.TextField(blank=True)
   
   class Meta:
