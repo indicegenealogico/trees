@@ -8,6 +8,7 @@ class Tree(models.Model):
   
   common_name = models.CharField('Common Name', max_length=30, blank=False, null=False )
   photo_link  = models.URLField( blank=True)
+  gallery     = models.URLField( blank=True)
 
   class Meta:
     ordering = ['common_name']
@@ -28,7 +29,7 @@ class Issue(models.Model):
     DISEASE = 1
     INSECT  = 2
     
-  name        = models.CharField('Issue', max_length=30, blank=False, null=False)
+  name        = models.CharField('Issue', max_length=50, blank=False, null=False)
   type        = models.PositiveIntegerField(null=False, choices=Type.choices, default=1)
   description = models.TextField(blank=True)
   photo_link  = models.URLField( blank=True)
