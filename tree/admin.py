@@ -9,7 +9,7 @@ class MakeAdmin(admin.ModelAdmin):
   pass
 
 #=======================================================================
-@admin.register(Issue)
+@admin.register(Pest)
 class MakeAdmin(admin.ModelAdmin):
   pass
 

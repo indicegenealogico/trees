@@ -18,19 +18,19 @@ class Tree(models.Model):
 
 
 #=======================================================================
-class Issue(models.Model):
+class Pest(models.Model):
 
   class Meta:
     # verbose_name        = 'Body'
     # verbose_name_plural = 'Bodies'
     ordering = ['name']
     
-  class Type(models.IntegerChoices):
+  class Category(models.IntegerChoices):
     DISEASE = 1
     INSECT  = 2
     
-  name        = models.CharField('Issue', max_length=50, blank=False, null=False)
-  type        = models.PositiveIntegerField(null=False, choices=Type.choices, default=1)
+  name        = models.CharField('Pest', max_length=50, blank=False, null=False)
+  category    = models.PositiveIntegerField(null=False, choices=Category.choices, default=1)
   description = models.TextField(blank=True)
   photo_link  = models.URLField( blank=True)
   tree        = models.ManyToManyField(Tree, through='Host')
@@ -43,9 +43,9 @@ class Issue(models.Model):
 class Host(models.Model):
   
   tree     = models.ForeignKey(Tree, on_delete=models.CASCADE)
-  issue    = models.ForeignKey(Issue, on_delete=models.CASCADE)
+  pest    = models.ForeignKey(Pest, on_delete=models.CASCADE)
   symptoms = models.TextField(blank=True)
   
   class Meta:
-    unique_together = [['tree', 'issue']]
+    unique_together = [['tree', 'pest']]
   
