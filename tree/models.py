@@ -72,7 +72,7 @@ class Chemical(models.Model):
 class Ingredient(models.Model):
   
   active_ingredient = models.CharField('Active ingredient', max_length=30, blank=False, null=False)
-  chemical = models.ManyToManyField(Chemical, through='Amount')
+  chemical          = models.ManyToManyField(Chemical, through='Amount')
 
 
   class Meta:
