@@ -17,3 +17,18 @@ class MakeAdmin(admin.ModelAdmin):
 @admin.register(Host)
 class MakeAdmin(admin.ModelAdmin):
   pass
+
+#=======================================================================
+@admin.register(Chemical)
+class MakeAdmin(admin.ModelAdmin):
+  pass
+
+#=======================================================================
+@admin.register(Ingredient)
+class MakeAdmin(admin.ModelAdmin):
+  pass
+
+#=======================================================================
+@admin.register(Concentration)
+class MakeAdmin(admin.ModelAdmin):
+  pass

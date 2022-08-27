@@ -65,14 +65,14 @@ class Chemical(models.Model):
     ordering = ['chm_name']
 
   def __str__(self) :
-    return (self.chm_name)
+    return (self.chm_name +' '+ self.brand_name)
   
   
 #=======================================================================
 class Ingredient(models.Model):
   
   active_ingredient = models.CharField('Active ingredient', max_length=30, blank=False, null=False)
-  chemical          = models.ManyToManyField(Chemical, through='Amount')
+  chemical          = models.ManyToManyField(Chemical, through='Concentration')
 
 
   class Meta:
@@ -83,11 +83,11 @@ class Ingredient(models.Model):
   
   
 #=======================================================================
-class Amount(models.Model):
+class Concentration(models.Model):
   
   chemical          = models.ForeignKey(Chemical, on_delete=models.CASCADE)
   active_ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-  amount            = models.FloatField(blank=True)
+  percentage        = models.FloatField(blank=True)
 
 
   class Meta:
