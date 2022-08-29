@@ -6,16 +6,16 @@ from django.db import models
 #=======================================================================
 class Tree(models.Model):
   
-  common_name     = models.CharField('Common Name', max_length=30, blank=False, null=False )
-  scientific_name = models.CharField('Scientific Name', max_length=50, blank=True,  null=True)
-  photo_link      = models.URLField( blank=True)
-  gallery         = models.URLField( blank=True)
+  common     = models.CharField('Common Name', max_length=30, blank=False, null=False )
+  scientific = models.CharField('Scientific Name', max_length=50, blank=True,  null=True)
+  photo_link = models.URLField( blank=True)
+  gallery    = models.URLField( blank=True)
 
   class Meta:
-    ordering = ['common_name']
+    ordering = ['common']
 
   def __str__(self) :
-    return (self.common_name)
+    return (self.common)
 
 
 #=======================================================================
@@ -55,17 +55,28 @@ class Host(models.Model):
 
 #=======================================================================
 class Chemical(models.Model):
-  
-  chm_name   = models.CharField('Chemical Name', max_length=30, blank=False, null=False )
-  brand_name = models.CharField('Brand Name', max_length=50, blank=True,  null=True)
-  epa        = models.URLField('EPA', blank=True)
+
+  class Categories(models.IntegerChoices):
+    FUNGICIDE       = 1
+    GROWN_REGULATOR = 2
+    HERBICIDE       = 3
+    INSECT_MITICIDE = 4
+    INSECTICIDE     = 5
+    NUTRIBOOSTER    = 6
+    POST_EMERGENT   = 7
+    PRE_EMERGENT    = 8
+
+  name       = models.CharField('Chemical Name', max_length=30, blank=False, null=False )
+  category   = models.PositiveIntegerField(null=False, choices=Categories.choices, default=1)
+  brand      = models.CharField('Brand Name', max_length=50, blank=True,  null=True)
+  epa        = models.CharField('EPA', max_length=20, blank=True)
   photo_link = models.URLField(blank=True)
 
   class Meta:
-    ordering = ['chm_name']
+    ordering = ['name']
 
   def __str__(self) :
-    return (self.chm_name +' '+ self.brand_name)
+    return (self.name +' '+ self.brand)
   
   
 #=======================================================================
@@ -87,8 +98,11 @@ class Concentration(models.Model):
   
   chemical          = models.ForeignKey(Chemical, on_delete=models.CASCADE)
   active_ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-  percentage        = models.FloatField(blank=True)
+  percentage        = models.CharField(max_length=6, blank=True)
 
 
   class Meta:
     unique_together = [['chemical', 'active_ingredient']]
+
+  def __str__(self) :
+    return ("%s %s" % (self.active_ingredient, self.percentage))
